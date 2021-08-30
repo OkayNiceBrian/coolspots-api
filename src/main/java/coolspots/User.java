@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Entity
 public class User {
 
@@ -23,7 +26,8 @@ public class User {
 
 		this.name = name;
 		this.email = email;
-		this.password = password;
+		this.setPassword(password);
+		this.spots = new ArrayList<Spot>();
 	}
 
 	public Long getId() {
@@ -59,7 +63,12 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		this.password = passwordEncoder.encode(password);
+	}
+	
+	public void setSpots(ArrayList<Spot> spots) {
+		this.spots = (ArrayList<Spot>) spots.clone();
 	}
 
 	public void addSpot(Spot spot) {

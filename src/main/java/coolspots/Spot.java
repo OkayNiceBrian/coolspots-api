@@ -55,6 +55,10 @@ public class Spot {
 	public ArrayList<String> getTags() {
 		return tags;
 	}
+	
+	public void setTags(ArrayList<String> tags) {
+		this.tags = (ArrayList<String>) tags.clone();
+	}
 
 	public void addTag(String tag) {
 		this.tags.add(tag);
