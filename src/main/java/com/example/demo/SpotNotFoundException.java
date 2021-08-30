@@ -1,4 +1,4 @@
-package coolspots;
+package com.example.demo;
 
 public class SpotNotFoundException extends RuntimeException {
 

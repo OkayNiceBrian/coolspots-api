@@ -1,4 +1,4 @@
-package coolspots;
+package com.example.demo;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class SpotController {
 		this.repository = repository;
 	}
 	
-	@PostMapping("/spots")
+	@GetMapping("/spots")
 	List<Spot> all() {
 		return repository.findAll();
 	}

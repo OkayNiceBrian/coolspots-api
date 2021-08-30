@@ -1,4 +1,4 @@
-package coolspots;
+package com.example.demo;
 
 import java.util.ArrayList;
 
