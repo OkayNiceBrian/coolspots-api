@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
-	private ArrayList<Spot> spots;
+	private List<Integer> spotIds;
 
 	public User() {
 	}
@@ -27,7 +28,7 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.setPassword(password);
-		this.spots = new ArrayList<Spot>();
+		this.spotIds = new ArrayList<Integer>();
 	}
 
 	public Long getId() {
@@ -46,8 +47,8 @@ public class User {
 		return this.password;
 	}
 
-	public ArrayList<Spot> getSpots() {
-		return this.spots;
+	public List<Integer> getSpots() {
+		return this.spotIds;
 	}
 
 	public void setId(Long id) {
@@ -67,12 +68,14 @@ public class User {
 		this.password = passwordEncoder.encode(password);
 	}
 	
-	public void setSpots(ArrayList<Spot> spots) {
-		this.spots = (ArrayList<Spot>) spots.clone();
+	public void setSpots(List<Integer> spotIds) {
+		for (Integer i : spotIds) {
+			this.spotIds.add(i);
+		}
 	}
 
-	public void addSpot(Spot spot) {
-		this.spots.add(spot);
+	public void addSpot(int spotId) {
+		this.spotIds.add(spotId);
 	}
 
 	@Override

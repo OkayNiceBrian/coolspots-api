@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -13,17 +14,18 @@ public class Spot {
 	private @Id @GeneratedValue Long id;
 	private String name;
 	private String description;
-	private ArrayList<String> tags;
+	private List<String> tags;
 	private double latitude;
 	private double longitude;
 	
 	public Spot() {
 	}
 	
-	public Spot(String name, String description, ArrayList<String> tags, double lat, double lng) {
+	public Spot(String name, String description, List<String> tags, double lat, double lng) {
 		this.name = name;
 		this.description = description;
-		this.tags = (ArrayList<String>) tags.clone();
+		this.tags = new ArrayList<String>();
+		this.setTags(tags);
 		this.latitude = lat;
 		this.longitude = lng;
 	}
@@ -52,12 +54,14 @@ public class Spot {
 		this.description = description;
 	}
 
-	public ArrayList<String> getTags() {
+	public List<String> getTags() {
 		return tags;
 	}
 	
-	public void setTags(ArrayList<String> tags) {
-		this.tags = (ArrayList<String>) tags.clone();
+	public void setTags(List<String> tags) {
+		for (String s : tags) {
+			this.tags.add(s);
+		}
 	}
 
 	public void addTag(String tag) {
