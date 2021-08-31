@@ -19,17 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpotController {
 
 	private final SpotRepository repository;
+	private final SpotModelAssembler assembler;
 	
-	public SpotController(SpotRepository repository) {
+	public SpotController(SpotRepository repository, SpotModelAssembler assembler) {
 		this.repository = repository;
+		this.assembler = assembler;
 	}
 	
 	@GetMapping("/spots")
 	CollectionModel<EntityModel<Spot>> all() {
-		List<EntityModel<Spot>> spots = repository.findAll().stream().map(spot -> EntityModel.of(spot, 
-				linkTo(methodOn(SpotController.class).one(spot.getId())).withSelfRel(),
-				linkTo(methodOn(SpotController.class).all()).withRel("spots")
-				)).collect(Collectors.toList());
+		List<EntityModel<Spot>> spots = repository.findAll().stream()
+				.map(assembler::toModel)
+				.collect(Collectors.toList());
 		
 		return CollectionModel.of(spots, linkTo(methodOn(SpotController.class).all()).withSelfRel());
 	}
@@ -45,10 +46,7 @@ public class SpotController {
 		Spot spot = repository.findById(id)
 				.orElseThrow(() -> new SpotNotFoundException(id));
 		
-		return EntityModel.of(spot,
-				linkTo(methodOn(SpotController.class).one(id)).withSelfRel(),
-				linkTo(methodOn(SpotController.class).all()).withRel("spots")
-				);
+		return assembler.toModel(spot);
 	}
 	
 	@PutMapping("spots/{id}")

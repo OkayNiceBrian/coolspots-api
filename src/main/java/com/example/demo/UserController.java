@@ -17,18 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-	private final UserRepository repository;
 	
-	public UserController(UserRepository repository) {
+	private final UserRepository repository;
+	private final UserModelAssembler assembler;
+	
+	public UserController(UserRepository repository, UserModelAssembler assembler) {
 		this.repository = repository;
+		this.assembler = assembler;
 	}
 	
 	@GetMapping("/users")
 	CollectionModel<EntityModel<User>> all() {
-		List<EntityModel<User>> users = repository.findAll().stream().map(user -> EntityModel.of(user,
-				linkTo(methodOn(UserController.class).one(user.getId())).withSelfRel(),
-				linkTo(methodOn(UserController.class).all()).withRel("users")
-				)).collect(Collectors.toList());
+		List<EntityModel<User>> users = repository.findAll().stream()
+				.map(assembler::toModel)
+				.collect(Collectors.toList());
 		
 		return CollectionModel.of(users, linkTo(methodOn(UserController.class).all()).withSelfRel());
 	}
@@ -43,10 +45,7 @@ public class UserController {
 		User user = repository.findById(id)
 				.orElseThrow(() -> new UserNotFoundException(id));
 		
-		return EntityModel.of(user, 
-				linkTo(methodOn(UserController.class).one(id)).withSelfRel(),
-				linkTo(methodOn(UserController.class).all()).withRel("users")
-				);
+		return assembler.toModel(user);
 	}
 	
 	@PutMapping("/users/{id}")
