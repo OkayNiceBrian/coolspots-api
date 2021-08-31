@@ -97,7 +97,7 @@ public class Spot {
 	
 	@Override
 	public String toString() {
-		return "Spot{" + "id=" + this.id + ", name='" + this.name + '\'' + ", latitude='" + this.latitude + '\'' + ", longitude='" + this.longitude + '\'' + '}';
+		return "Spot{" + "id=" + this.id + ", name='" + this.name + '\'' + ", description='" + this.description + '\'' + ", latitude='" + this.latitude + '\'' + ", longitude='" + this.longitude + '\'' + '}';
 	}
 	
 }
