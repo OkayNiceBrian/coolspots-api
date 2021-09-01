@@ -1,4 +1,4 @@
-package com.example.demo;
+package coolspots;
 
 import java.util.List;
 import java.util.stream.Collectors;

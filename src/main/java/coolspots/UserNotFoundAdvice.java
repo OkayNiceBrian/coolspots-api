@@ -1,4 +1,4 @@
-package com.example.demo;
+package coolspots;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class SpotNotFoundAdvice {
+public class UserNotFoundAdvice {
 
 	@ResponseBody
-	@ExceptionHandler(SpotNotFoundException.class)
+	@ExceptionHandler(UserNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	String spotNotFoundHandler(SpotNotFoundException ex) {
+	String userNotFoundHandler(UserNotFoundException ex) {
 		return ex.getMessage();
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.demo;
+package coolspots;
 
 public class UserNotFoundException extends RuntimeException {
 	

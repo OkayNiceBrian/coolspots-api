@@ -1,4 +1,4 @@
-package com.example.demo;
+package coolspots;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
