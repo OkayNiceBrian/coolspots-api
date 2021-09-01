@@ -17,11 +17,11 @@ public class LoadDatabase {
 	CommandLineRunner initDatabase(UserRepository userRepo, SpotRepository spotRepo) {
 		
 		return args -> {
-			log.info("Preloading " + userRepo.save(new User("Brian", "brianjackson1224@gmail.com", "password123")));
-			log.info("Preloading " + userRepo.save(new User("Vince", "vincemej.123@gmail.com", "heythere321")));
+			// log.info("Preloading " + userRepo.save(new User("Brian", "brian@email.com", "password123")));
+			// log.info("Preloading " + userRepo.save(new User("Vince", "vince@email.com", "heythere321")));
 			
-			log.info("Preloading " + spotRepo.save(new Spot("The Bush Spot", "Sick manny pad spot.", new ArrayList<String>(), 38.8951, -77.0364)));
-			log.info("Preloading " + spotRepo.save(new Spot("Garfield", "Nice school area to skate.", new ArrayList<String>(), 47.6062, 122.3321)));
+			// log.info("Preloading " + spotRepo.save(new Spot("The Bush Spot", "Sick manny pad spot.", new ArrayList<String>(), 38.8951, -77.0364)));
+			// log.info("Preloading " + spotRepo.save(new Spot("Garfield", "Nice school area to skate.", new ArrayList<String>(), 47.6062, 122.3321)));
 		};
 	}
 }

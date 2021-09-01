@@ -4,23 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
+@Table(name = "users")
 public class User {
 
-	private @Id @GeneratedValue Long id;
+	@Id @GeneratedValue
+	private Long id;
+	
+	@Column(name = "name", nullable = false)
 	private String name;
+	
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
+	
+	@Column(name = "password", nullable = false)
 	private String password;
 	
 	@ElementCollection
+	@Column(name = "spotIds")
 	private List<Integer> spotIds = new ArrayList<Integer>();
 
 	public User() {

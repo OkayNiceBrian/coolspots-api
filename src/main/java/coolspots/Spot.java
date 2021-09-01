@@ -4,21 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "spots")
 public class Spot {
 
-	private @Id @GeneratedValue Long id;
+	@Id @GeneratedValue 
+	private Long id;
+	
+	@Column(name = "name", nullable = false)
 	private String name;
+	
+	@Column(name = "description", nullable = true)
 	private String description;
 	
 	@ElementCollection
+	@Column(name = "tags", nullable = true)
 	private List<String> tags = new ArrayList<String>();
+	
+	@Column(name = "latitude", nullable = false)
 	private double latitude;
+	
+	@Column(name = "longitude", nullable = false)
 	private double longitude;
 	
 	public Spot() {
