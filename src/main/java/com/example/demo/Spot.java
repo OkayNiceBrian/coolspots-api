@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,7 +15,9 @@ public class Spot {
 	private @Id @GeneratedValue Long id;
 	private String name;
 	private String description;
-	private List<String> tags;
+	
+	@ElementCollection
+	private List<String> tags = new ArrayList<String>();
 	private double latitude;
 	private double longitude;
 	
@@ -24,7 +27,6 @@ public class Spot {
 	public Spot(String name, String description, List<String> tags, double lat, double lng) {
 		this.name = name;
 		this.description = description;
-		this.tags = new ArrayList<String>();
 		this.setTags(tags);
 		this.latitude = lat;
 		this.longitude = lng;
@@ -59,9 +61,7 @@ public class Spot {
 	}
 	
 	public void setTags(List<String> tags) {
-		for (String s : tags) {
-			this.tags.add(s);
-		}
+		this.tags = tags;
 	}
 
 	public void addTag(String tag) {

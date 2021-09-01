@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +19,9 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
-	private List<Integer> spotIds;
+	
+	@ElementCollection
+	private List<Integer> spotIds = new ArrayList<Integer>();
 
 	public User() {
 	}
@@ -28,7 +31,6 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.setPassword(password);
-		this.spotIds = new ArrayList<Integer>();
 	}
 
 	public Long getId() {
@@ -69,9 +71,7 @@ public class User {
 	}
 	
 	public void setSpots(List<Integer> spotIds) {
-		for (Integer i : spotIds) {
-			this.spotIds.add(i);
-		}
+		this.spotIds = spotIds;
 	}
 
 	public void addSpot(int spotId) {

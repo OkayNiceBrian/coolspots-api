@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,8 +39,11 @@ public class UserController {
 	}
 	
 	@PostMapping("/users")
-	User newUser(@RequestBody User newUser) {
-		return repository.save(newUser);
+	ResponseEntity<?> newUser(@RequestBody User newUser) {
+		EntityModel<User> entityModel = assembler.toModel(repository.save(newUser));
+		
+		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF)
+				.toUri()).body(entityModel);
 	}
 	
 	@GetMapping("/users/{id}")
@@ -49,9 +55,9 @@ public class UserController {
 	}
 	
 	@PutMapping("/users/{id}")
-	User updateUser(@RequestBody User newUser, @PathVariable Long id) {
+	ResponseEntity<?> updateUser(@RequestBody User newUser, @PathVariable Long id) {
 		
-		return repository.findById(id)
+		User updatedUser = repository.findById(id)
 				.map(user -> {
 					user.setName(newUser.getName());
 					user.setEmail(newUser.getEmail());
@@ -63,10 +69,17 @@ public class UserController {
 					newUser.setId(id);
 					return repository.save(newUser);
 				});
+		
+		EntityModel<User> entityModel = assembler.toModel(updatedUser);
+		
+		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF)
+				.toUri()).body(entityModel);
 	}
 	
 	@DeleteMapping("/users/{id}")
-	void deleteUser(@PathVariable Long id) {
+	ResponseEntity<?> deleteUser(@PathVariable Long id) {
+		
 		repository.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 }

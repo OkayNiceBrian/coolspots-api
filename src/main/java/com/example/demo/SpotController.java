@@ -1,12 +1,15 @@
 package com.example.demo;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +39,11 @@ public class SpotController {
 	}
 	
 	@PostMapping("/spots")
-	Spot newSpot(@RequestBody Spot newSpot) {
-		return repository.save(newSpot);
+	ResponseEntity<?> newSpot(@RequestBody Spot newSpot) {
+		EntityModel<Spot> entityModel = assembler.toModel(repository.save(newSpot));
+		
+		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF)
+				.toUri()).body(entityModel);
 	}
 	
 	@GetMapping("/spots/{id}")
@@ -50,9 +56,9 @@ public class SpotController {
 	}
 	
 	@PutMapping("spots/{id}")
-	Spot updateSpot(@RequestBody Spot newSpot, @PathVariable Long id) {
+	ResponseEntity<?> updateSpot(@RequestBody Spot newSpot, @PathVariable Long id) {
 		
-		return repository.findById(id)
+		Spot updatedSpot = repository.findById(id)
 				.map(spot -> {
 					spot.setName(newSpot.getName());
 					spot.setDescription(newSpot.getDescription());
@@ -65,10 +71,17 @@ public class SpotController {
 					newSpot.setId(id);
 					return repository.save(newSpot);
 				});
+		
+		EntityModel<Spot> entityModel = assembler.toModel(updatedSpot);
+		
+		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF)
+				.toUri()).body(entityModel);
 	}
 	
 	@DeleteMapping("/spots/{id}")
-	void deleteSpot(@PathVariable Long id) {
+	ResponseEntity<?> deleteSpot(@PathVariable Long id) {
+		
 		repository.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 }
