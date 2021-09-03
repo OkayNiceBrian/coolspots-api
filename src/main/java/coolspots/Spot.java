@@ -28,21 +28,29 @@ public class Spot {
 	@Column(name = "tags", nullable = true)
 	private List<String> tags = new ArrayList<String>();
 	
+	@Column(name = "city", nullable = false)
+	private String city;
+	
 	@Column(name = "latitude", nullable = false)
 	private double latitude;
 	
 	@Column(name = "longitude", nullable = false)
 	private double longitude;
 	
+	@Column(name = "visible", nullable = false)
+	private boolean visible;
+	
 	public Spot() {
 	}
 	
-	public Spot(String name, String description, List<String> tags, double lat, double lng) {
+	public Spot(String name, String description, List<String> tags, String city, double lat, double lng, boolean visible) {
 		this.name = name;
 		this.description = description;
 		this.setTags(tags);
+		this.city = city;
 		this.latitude = lat;
 		this.longitude = lng;
+		this.visible = visible;
 	}
 
 	public Long getId() {
@@ -80,6 +88,14 @@ public class Spot {
 	public void addTag(String tag) {
 		this.tags.add(tag);
 	}
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	public String getCity() {
+		return this.city;
+	}
 
 	public double getLatitude() {
 		return latitude;
@@ -95,6 +111,14 @@ public class Spot {
 
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+	
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	
+	public boolean getVisible() {
+		return this.visible;
 	}
 	
 	@Override
