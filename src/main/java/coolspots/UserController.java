@@ -12,6 +12,7 @@ import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -73,6 +74,19 @@ public class UserController {
 				});
 		
 		EntityModel<User> entityModel = assembler.toModel(updatedUser);
+		
+		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF)
+				.toUri()).body(entityModel);
+	}
+	
+	@PatchMapping("/users/{id}/newSpotId={spotId}")
+	ResponseEntity<?> addSpot( @PathVariable Long id, @PathVariable Long spotId) {
+		
+		User user = repository.findById(id).get();
+		user.addSpot(spotId);
+		repository.save(user);
+		
+		EntityModel<User> entityModel = assembler.toModel(user);
 		
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF)
 				.toUri()).body(entityModel);

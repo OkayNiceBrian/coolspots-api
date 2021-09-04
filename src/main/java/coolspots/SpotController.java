@@ -67,6 +67,8 @@ public class SpotController {
 					spot.setTags(newSpot.getTags());
 					spot.setLatitude(newSpot.getLatitude());
 					spot.setLongitude(newSpot.getLongitude());
+					spot.setVisible(newSpot.getVisible());
+					spot.setUserId(newSpot.getUserId());
 					return repository.save(spot);
 				})
 				.orElseGet(() -> {

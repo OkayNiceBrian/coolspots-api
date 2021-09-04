@@ -32,7 +32,7 @@ public class User {
 	
 	@ElementCollection
 	@Column(name = "spotIds")
-	private List<Integer> spotIds = new ArrayList<Integer>();
+	private List<Long> spotIds = new ArrayList<Long>();
 
 	public User() {
 	}
@@ -60,7 +60,7 @@ public class User {
 		return this.password;
 	}
 
-	public List<Integer> getSpots() {
+	public List<Long> getSpots() {
 		return this.spotIds;
 	}
 
@@ -81,11 +81,11 @@ public class User {
 		this.password = passwordEncoder.encode(password);
 	}
 	
-	public void setSpots(List<Integer> spotIds) {
+	public void setSpots(List<Long> spotIds) {
 		this.spotIds = spotIds;
 	}
 
-	public void addSpot(int spotId) {
+	public void addSpot(Long spotId) {
 		this.spotIds.add(spotId);
 	}
 

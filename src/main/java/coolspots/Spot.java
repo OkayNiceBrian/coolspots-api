@@ -40,10 +40,13 @@ public class Spot {
 	@Column(name = "visible", nullable = false)
 	private boolean visible;
 	
+	@Column(name = "userId", nullable = false)
+	private Long userId;
+	
 	public Spot() {
 	}
 	
-	public Spot(String name, String description, List<String> tags, String city, double lat, double lng, boolean visible) {
+	public Spot(String name, String description, List<String> tags, String city, double lat, double lng, boolean visible, Long userId) {
 		this.name = name;
 		this.description = description;
 		this.setTags(tags);
@@ -51,6 +54,7 @@ public class Spot {
 		this.latitude = lat;
 		this.longitude = lng;
 		this.visible = visible;
+		this.userId = userId;
 	}
 
 	public Long getId() {
@@ -119,6 +123,14 @@ public class Spot {
 	
 	public boolean getVisible() {
 		return this.visible;
+	}
+	
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	
+	public Long getUserId() {
+		return this.userId;
 	}
 	
 	@Override

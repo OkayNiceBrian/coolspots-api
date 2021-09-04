@@ -20,8 +20,8 @@ public class LoadDatabase {
 //			log.info("Preloading " + userRepo.save(new User("Brian", "brian@email.com", "password123")));
 //			log.info("Preloading " + userRepo.save(new User("Vince", "vince@email.com", "heythere321")));
 //			
-//			log.info("Preloading " + spotRepo.save(new Spot("The Bush Spot", "Sick manny pad spot.", new ArrayList<String>(), "Tumwater, WA", 38.8951, -77.0364, true)));
-//			log.info("Preloading " + spotRepo.save(new Spot("Garfield", "Nice school area to skate.", new ArrayList<String>(), "Olympia, WA", 47.6062, 122.3321, true)));
+//			log.info("Preloading " + spotRepo.save(new Spot("The Bush Spot", "Sick manny pad spot.", new ArrayList<String>(), "Tumwater, WA", 38.8951, -77.0364, true, (long) 1)));
+//			log.info("Preloading " + spotRepo.save(new Spot("Garfield", "Nice school area to skate.", new ArrayList<String>(), "Olympia, WA", 47.6062, 122.3321, true, (long) 2)));
 		};
 	}
 }
