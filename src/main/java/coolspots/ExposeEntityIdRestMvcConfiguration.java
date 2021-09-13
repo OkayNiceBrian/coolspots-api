@@ -10,7 +10,6 @@ public class ExposeEntityIdRestMvcConfiguration implements RepositoryRestConfigu
 	
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-		config.exposeIdsFor(User.class);
 		config.exposeIdsFor(Spot.class);
 	}
 }

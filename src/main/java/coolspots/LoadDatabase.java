@@ -14,14 +14,14 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 	
 	@Bean
-	CommandLineRunner initDatabase(UserRepository userRepo, SpotRepository spotRepo) {
+	CommandLineRunner initDatabase(SpotRepository spotRepo) {
 		
 		return args -> {
-//			log.info("Preloading " + userRepo.save(new User("Brian", "brian@email.com", "password123")));
-//			log.info("Preloading " + userRepo.save(new User("Vince", "vince@email.com", "heythere321")));
-//			
-//			log.info("Preloading " + spotRepo.save(new Spot("The Bush Spot", "Sick manny pad spot.", new ArrayList<String>(), "Tumwater, WA", 38.8951, -77.0364, true, (long) 1)));
-//			log.info("Preloading " + spotRepo.save(new Spot("Garfield", "Nice school area to skate.", new ArrayList<String>(), "Olympia, WA", 47.6062, 122.3321, true, (long) 2)));
+//			log.info("Preloading " + spotRepo.save(new Spot("The Bush Spot", "Sick manny pad spot.", new ArrayList<String>(), "Tumwater, WA", 47.0073, -122.9093, true, new ArrayList<String>())));
+//			log.info("Preloading " + spotRepo.save(new Spot("Garfield", "Nice school area to skate.", new ArrayList<String>(), "Olympia, WA", 47.6062, -122.3331, true, new ArrayList<String>())));
+//			log.info("Preloading " + spotRepo.save(new Spot("F Lot", "Chillin parking lot.", new ArrayList<String>(), "Olympia, WA", 47.6062, -122.3329, true, new ArrayList<String>())));
+//			log.info("Preloading " + spotRepo.save(new Spot("Eiffel Tower", "Some thingy.", new ArrayList<String>(), "Paris, France", 48.8566, 2.3522, true, new ArrayList<String>())));
+//			log.info("Preloading " + spotRepo.save(new Spot("Saigon Rendesvouz", "Best damn restaurant.", new ArrayList<String>(), "Olympia, WA", 47.6062, -122.3325, true, new ArrayList<String>())));
 		};
 	}
 }

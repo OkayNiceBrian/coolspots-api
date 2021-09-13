@@ -40,13 +40,14 @@ public class Spot {
 	@Column(name = "visible", nullable = false)
 	private boolean visible;
 	
-	@Column(name = "userId", nullable = false)
-	private Long userId;
+	@ElementCollection
+	@Column(name ="imageLinks", nullable = true)
+	private List<String> imageLinks = new ArrayList<String>();
 	
 	public Spot() {
 	}
 	
-	public Spot(String name, String description, List<String> tags, String city, double lat, double lng, boolean visible, Long userId) {
+	public Spot(String name, String description, List<String> tags, String city, double lat, double lng, boolean visible, List<String> imageLinks) {
 		this.name = name;
 		this.description = description;
 		this.setTags(tags);
@@ -54,7 +55,7 @@ public class Spot {
 		this.latitude = lat;
 		this.longitude = lng;
 		this.visible = visible;
-		this.userId = userId;
+		this.imageLinks = imageLinks;
 	}
 
 	public Long getId() {
@@ -125,12 +126,16 @@ public class Spot {
 		return this.visible;
 	}
 	
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setImageLinks(List<String> imageLinks) {
+		this.imageLinks = imageLinks;
 	}
 	
-	public Long getUserId() {
-		return this.userId;
+	public List<String> getImageLinks() {
+		return this.imageLinks;
+	}
+	
+	public void addImageLink(String imageLink) {
+		this.imageLinks.add(imageLink);
 	}
 	
 	@Override
